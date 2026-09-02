@@ -20,8 +20,9 @@
 | `node srccheck.mjs` | 출처 82개를 하나씩 실제로 받아 **본문에 근거가 있는지** 확인 (4분) |
 | `node srccheck.mjs --selftest` | 위 판정 규칙만 확인 (망 불필요, 1초) |
 | `node chunk.mjs --band L3 "문단"` | 의미 단위 끊어 읽기 **초안** 생성 |
-| `node chunk.mjs --eval --holdout` | 초안 생성기가 사람 판단과 얼마나 맞는지 (지금 F1 69.0) |
+| `node chunk.mjs --eval --holdout` | 초안 생성기가 사람 판단과 얼마나 맞는지 (지금 F1 71.6) |
 | `node chunk.mjs --style` | 지문마다 사람이 끊은 조각 길이 — 스타일이 갈렸는지 본다 |
+| `node fix-long.mjs` | 8어절 넘는 조각을 찾아 쪼갤 자리를 보여 준다 (`--write` 로 반영) |
 | `node linkcheck.mjs` | 딥링크 생존 확인 (상태 코드만) |
 
 끊어 읽기 규칙은 [의미단위-끊어읽기-규격.md](의미단위-끊어읽기-규격.md)에 정리해 두었습니다 — 교재나 다른 앱에서 참고할 수 있습니다.
