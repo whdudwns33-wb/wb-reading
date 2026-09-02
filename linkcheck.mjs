@@ -1,6 +1,6 @@
 'use strict';
 /* 지문 딥링크 생존 점검 — 운영 루틴용 (앱 코드 아님)
-   사용: node reading/linkcheck.mjs
+   사용: node linkcheck.mjs
    대상: sources / videos / papers / books(url) / books.video
    유튜브는 oembed로 실제 시청 가능 여부까지 확인.
    종료 코드: 죽은 링크(bad)가 있으면 1, 없으면 0. curl 사용(프록시 환경 호환). */
