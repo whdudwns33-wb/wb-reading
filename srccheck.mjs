@@ -1,9 +1,9 @@
 'use strict';
 /* 지문 출처 실사 점검 — 운영 루틴용 (앱 코드 아님)
  *
- *   node reading/srccheck.mjs              전체 출처
- *   node reading/srccheck.mjs marine-heatwave price-wage    지문 몇 편만
- *   node reading/srccheck.mjs --json out.json               결과를 파일로
+ *   node srccheck.mjs              전체 출처
+ *   node srccheck.mjs marine-heatwave price-wage    지문 몇 편만
+ *   node srccheck.mjs --json out.json               결과를 파일로
  *
  * linkcheck.mjs 와 무엇이 다른가:
  *   linkcheck 는 "주소가 살아 있나"만 본다 — 상태 코드.

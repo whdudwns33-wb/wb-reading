@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* 지문 데이터 분할 — node reading/build-split.mjs
+/* 지문 데이터 분할 — node build-split.mjs
  *
  * 학생 앱은 켤 때마다 articles.json 전체를 받았다. 지금은 1MB(전송 215KB)지만
  * 주 4~5편 × 4개 학년대로 쌓이면 1년 뒤 7MB가 된다. 학생에게 필요한 것은

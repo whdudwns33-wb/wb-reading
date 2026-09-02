@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-/* 분할 파일 무결성 — node reading/split.test.cjs
+/* 분할 파일 무결성 — node split.test.cjs
  *
  * 분할본은 커밋되는 산출물이라, articles.json만 고치고 재생성을 잊으면
  * 학생 앱이 옛 지문을 계속 보게 된다. 이 테스트가 그걸 막는다.
@@ -23,7 +23,7 @@ const db = read('articles.json');
  * 고쳐져 재실행 때 통과해 버리고, 진짜 빠뜨린 재생성이 일시적 오류처럼 보인다. */
 const names = [...LEVELS.map(l => `articles-${l}.json`), 'hanja.json', 'version.json'];
 const missing = names.filter(n => !fs.existsSync(path.join(DIR, n)));
-missing.forEach(n => E(`${n} 없음 — node reading/build-split.mjs 를 실행하세요`));
+missing.forEach(n => E(`${n} 없음 — node build-split.mjs 를 실행하세요`));
 if (!missing.length) {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'wbr-split-'));
   try {
@@ -31,7 +31,7 @@ if (!missing.length) {
     names.forEach(n => {
       const fresh = fs.readFileSync(path.join(tmp, n), 'utf8');
       const kept = fs.readFileSync(path.join(DIR, n), 'utf8');
-      if (fresh !== kept) E(`${n} 이 articles.json 과 어긋납니다 — node reading/build-split.mjs 를 실행하고 커밋하세요`);
+      if (fresh !== kept) E(`${n} 이 articles.json 과 어긋납니다 — node build-split.mjs 를 실행하고 커밋하세요`);
     });
   } finally {
     fs.rmSync(tmp, { recursive: true, force: true });
