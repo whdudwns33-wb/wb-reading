@@ -1,5 +1,5 @@
 'use strict';
-/* 8어절 넘는 조각을 쪼갠다 (node fix-long.mjs [--write])
+/* 8어절 넘는 조각을 쪼갠다 (node reading/fix-long.mjs [--write])
  *
  * 규격서 2장: 「8어절이 넘으면 거의 항상 두 개로 쪼갤 자리가 있다」.
  * 넘는 조각은 학생이 한 호흡에 삼켜야 하는 덩어리라 끊어 읽기의 목적이 무너진다.
@@ -178,7 +178,7 @@ for (const r of only) {
 console.log(`\n8어절 초과 ${over}개 · 표대로 ${byHand} · 도구가 쪼갬 ${fixed} · 보류 ${weak} · 자리 못 찾음 ${stuck}`);
 if (write) {
   fs.writeFileSync(dbPath, JSON.stringify(db, null, 2) + '\n');
-  console.log('articles.json 에 반영했습니다. node build-split.mjs 를 잊지 마세요.');
+  console.log('articles.json 에 반영했습니다. node reading/build-split.mjs 를 잊지 마세요.');
 } else {
   console.log('(미리 보기입니다. 반영하려면 --write)');
 }
