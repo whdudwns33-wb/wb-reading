@@ -1,10 +1,10 @@
 'use strict';
 /* 의미 단위 끊어 읽기 — 초안 생성기 (집필 보조 도구, 앱 코드 아님)
  *
- *   node chunk.mjs --band L3 "바닷물의 온도가 평년 값보다 …"
- *   echo "문단 …" | node chunk.mjs --band L4
- *   node chunk.mjs --eval          사람이 끊은 6,025조각과 대조
- *   node chunk.mjs --selftest      규칙만 확인 (망·데이터 불필요)
+ *   node reading/chunk.mjs --band L3 "바닷물의 온도가 평년 값보다 …"
+ *   echo "문단 …" | node reading/chunk.mjs --band L4
+ *   node reading/chunk.mjs --eval          사람이 끊은 6,025조각과 대조
+ *   node reading/chunk.mjs --selftest      규칙만 확인 (망·데이터 불필요)
  *
  * ── 이 도구의 위치 ────────────────────────────────────────
  * 이건 **초안**이다. 사람 손질이 전제다.
@@ -15,7 +15,7 @@
  *
  * 그래서 쓰는 법은 하나다 — **돌려서 초안을 얻고, 사람이 고친다.**
  * 고친 결과가 최종이고, content.test.cjs 가 무결성을 본다.
- * 규칙 자체는 의미단위-끊어읽기-규격.md 에 적어 두었다.
+ * 규칙 자체는 docs/의미단위-끊어읽기-규격.md 에 적어 두었다.
  *
  * ── 지키는 것 ─────────────────────────────────────────────
  *  · join('') === 원문  (글자 하나도 잃지 않는다)
@@ -56,7 +56,7 @@ export const BANDS = {
    두 번째 조건이 없으면 「네스코」「26년」 같은 내용어를 외워 버린다.
    문법 어미만 남기려는 장치다.
 
-   articles.json 이 늘면 `node chunk.mjs --retrain` 으로 다시 배운다. */
+   articles.json 이 늘면 `node reading/chunk.mjs --retrain` 으로 다시 배운다. */
 const BASE_RATE = 0.22;                    /* 아무 정보 없을 때의 끊김률 */
 const SUFFIX = {
   "간다.":0.78,"긴다.":0.82,"난다.":0.71,"는다.":0.94,"된다.":0.65,"든다.":0.92,"른다.":0.8,"아요.":0.84,
@@ -375,7 +375,7 @@ if (isMain) {
     const a = src.indexOf('const SUFFIX = {'), b = src.indexOf('};', a);
     fs.writeFileSync(ME, src.slice(0, a) + 'const SUFFIX = {\n' + lines.join('\n') + '\n' + src.slice(b));
     console.log(`확률표를 다시 배웠습니다 — 어미 ${items.length}개 (지문 ${DB.articles.length}편)`);
-    console.log('바뀐 실력을 보려면: node chunk.mjs --eval --holdout');
+    console.log('바뀐 실력을 보려면: node reading/chunk.mjs --eval --holdout');
     process.exit(0);
   }
 
@@ -473,7 +473,7 @@ if (isMain) {
 
   const text = argv.filter(x => !x.startsWith('--') && x !== bandOf()).join(' ')
     || await new Promise(res => { let s = ''; process.stdin.on('data', d => s += d).on('end', () => res(s.trim())); });
-  if (!text) { console.error('끊을 글을 넘겨 주세요.  예: node chunk.mjs --band L3 "…"'); process.exit(1); }
+  if (!text) { console.error('끊을 글을 넘겨 주세요.  예: node reading/chunk.mjs --band L3 "…"'); process.exit(1); }
   const segs = chunk(text, bandOf());
   console.log(segs.map(s => s.trimEnd()).join(' ∕ '));
   console.log(`\n조각 ${segs.length}개 · 평균 ${(segs.reduce((a, s) => a + s.trim().split(/\s+/).length, 0) / segs.length).toFixed(1)}어절`);

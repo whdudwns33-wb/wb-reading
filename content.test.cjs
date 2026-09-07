@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-/* WB 진로독서 콘텐츠 무결성 테스트 — node content.test.cjs */
+/* WB 진로독서 콘텐츠 무결성 테스트 — node reading/content.test.cjs */
 const fs = require('fs');
 const path = require('path');
 
@@ -232,11 +232,11 @@ hanjaRd.forEach((seen, ch) => {
 });
 
 /* ── 끊어 읽기 조각이 너무 길지 않은가 ──
-   규격서(의미단위-끊어읽기-규격.md) 2장: 「8어절이 넘으면 거의 항상 두 개로
+   규격서(docs/의미단위-끊어읽기-규격.md) 2장: 「8어절이 넘으면 거의 항상 두 개로
    쪼갤 자리가 있다」. 넘는 조각은 학생이 한 호흡에 삼켜야 하는 덩어리라
    끊어 읽기의 목적이 무너진다. 2026-09-02 전수 점검에서 133개가 나왔다 —
    8-31에 한꺼번에 쓴 17편이 나머지보다 1.5~2어절 길게 끊겨 있었다.
-   2026-09-02에 133개를 하나씩 보고 쪼갰다(long-cuts.json). 이제 0이므로
+   2026-09-02에 133개를 하나씩 보고 쪼갰다(reading/long-cuts.json). 이제 0이므로
    경고가 아니라 오류다 — 다시 생기면 커밋 전에 막는다. */
 {
   const LONG = 8;
@@ -262,7 +262,7 @@ hanjaRd.forEach((seen, ch) => {
     E(`${LONG}어절이 넘는 끊어 읽기 조각 ${total}개 — 규격서 2장은 쪼개라고 합니다.`
       + `\n        학생이 한 호흡에 삼켜야 하는 덩어리라 끊어 읽기의 목적이 무너집니다.`
       + `\n        많은 순: ${worst}`
-      + `\n        고치려면: node fix-long.mjs 로 자리를 보고, long-cuts.json 에 적은 뒤 --write`);
+      + `\n        고치려면: node reading/fix-long.mjs 로 자리를 보고, reading/long-cuts.json 에 적은 뒤 --write`);
   }
 }
 
@@ -271,7 +271,7 @@ hanjaRd.forEach((seen, ch) => {
    기존 35편은 규격이 생기기 전에 쓴 것이라 chunk-baseline.json 으로 빼 준다 —
    17편을 다시 끊으려면 경계 2,000개를 건드려야 해서, 새로 쓰는 글부터 맞추기로 했다.
 
-   허용 폭이 ±0.8 인 이유: `node chunk.mjs --band L3 "문단"` 이 내놓는 초안은
+   허용 폭이 ±0.8 인 이유: `node reading/chunk.mjs --band L3 "문단"` 이 내놓는 초안은
    규격에서 ±0.4 안쪽이다. 초안을 받아 손질하면 ±0.4 의 여유가 더 있는 셈이라
    자연히 통과한다. 손으로만 끊으면 걸릴 수 있는데, 그때는 도구를 먼저 돌리면 된다. */
 {
@@ -294,7 +294,7 @@ hanjaRd.forEach((seen, ch) => {
       if (Math.abs(off) <= TOL) return;
       E(`${a.id}/${lv}: 끊어 읽기 조각이 평균 ${mean.toFixed(2)}어절 — 규격은 ${target} ± ${TOL} 입니다`
         + ` (${off > 0 ? '너무 큼' : '너무 잘음'}, 조각 ${lens.length}개)`
-        + `\n        node chunk.mjs --band ${lv} "문단" 으로 초안을 받아 손질하면 대개 맞습니다`);
+        + `\n        node reading/chunk.mjs --band ${lv} "문단" 으로 초안을 받아 손질하면 대개 맞습니다`);
     });
   });
 }
